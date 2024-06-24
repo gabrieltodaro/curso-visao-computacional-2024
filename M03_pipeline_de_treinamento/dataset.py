@@ -29,17 +29,24 @@ def transform_mnist(img, mean=33., std=76.5):
     img = np.array(img, dtype=np.float32)
     # Conversão numpy->pytorch
     img = torch.from_numpy(img)
+
     # Normalização
-    img = (img-mean)/std
-    # Adição de um canal
+    img = (img - mean) / std
+    
+    # Adição de uma dimensão do canal // redimensionar 
     img = img.reshape(1, img.shape[0], img.shape[1])
 
     return img
 
-def load_mnist(root='../data', n=1000):
+def load_mnist(root='../data', n = 1000):
 
-    ds = datasets.MNIST(root, train=True, download=True)
+    ds = datasets.MNIST(root, 
+                        train = True, 
+                        download = True)
+    
+    # Semente do gerador de números aleatórios, utilizado para, durante a exec do notebook, usará a mesma listagem de elementos.
     random.seed(42)
+    
     indices = random.sample(range(len(ds)), k=2*n)
     ds_train = Subset(ds, indices[:n], transform_mnist)
     ds_valid = Subset(ds, indices[n:], transform_mnist)
