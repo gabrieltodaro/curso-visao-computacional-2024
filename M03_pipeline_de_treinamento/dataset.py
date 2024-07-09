@@ -26,7 +26,8 @@ def transform_mnist(img, mean=33., std=76.5):
     """Transforma uma imagem do MNIST. A média e desvio padrão utilizados na
     normalização foram calculados previamente."""
     # Conversão PIL->numpy
-    img = np.array(img, dtype=np.float32)
+    img = np.array(img, dtype = np.float32)
+    
     # Conversão numpy->pytorch
     img = torch.from_numpy(img)
 
